@@ -1,0 +1,12 @@
+{
+  "name": "hls-player",
+  "version": "1.0.0",
+  "description": "Player HLS para vídeos streaming",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["hls", "player", "video", "streaming"],
+  "author": "",
+  "license": "MIT"
+}

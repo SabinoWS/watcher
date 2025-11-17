@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player HLS - Mugen Gacha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .status.info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .status.warning {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .video-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .info-card label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .info-card span {
+            display: block;
+            font-size: 18px;
+            color: #333;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Player HLS</h1>
+        
+        <div class="video-container">
+            <video id="video" controls></video>
+        </div>
+
+        <div class="controls">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="urlInput" 
+                    placeholder="Cole a URL do arquivo .m3u8 aqui"
+                    value="https://cdn-zenitsu-2-gamabunta.b-cdn.net/cf/hls/animes/mugen-gacha/007.mp4/media-1/stream.m3u8"
+                >
+                <button id="loadBtn">Carregar Vídeo</button>
+            </div>
+        </div>
+
+        <div id="status" class="status info" style="display: none;"></div>
+
+        <div class="video-info">
+            <div class="info-card">
+                <label>Status</label>
+                <span id="statusText">Aguardando...</span>
+            </div>
+            <div class="info-card">
+                <label>Qualidade</label>
+                <span id="qualityText">-</span>
+            </div>
+            <div class="info-card">
+                <label>Duração</label>
+                <span id="durationText">-</span>
+            </div>
+            <div class="info-card">
+                <label>Tempo Atual</label>
+                <span id="currentTimeText">00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        let hls = null;
+        const video = document.getElementById('video');
+        const urlInput = document.getElementById('urlInput');
+        const loadBtn = document.getElementById('loadBtn');
+        const statusDiv = document.getElementById('status');
+        const statusText = document.getElementById('statusText');
+        const qualityText = document.getElementById('qualityText');
+        const durationText = document.getElementById('durationText');
+        const currentTimeText = document.getElementById('currentTimeText');
+
+        function showStatus(message, type = 'info') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+        }
+
+        function updateVideoInfo() {
+            if (video.readyState >= 2) {
+                const duration = video.duration;
+                if (duration && !isNaN(duration)) {
+                    const minutes = Math.floor(duration / 60);
+                    const seconds = Math.floor(duration % 60);
+                    durationText.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+
+            const current = video.currentTime;
+            const minutes = Math.floor(current / 60);
+            const seconds = Math.floor(current % 60);
+            currentTimeText.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            if (h > 0) {
+                return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function loadVideo() {
+            const url = urlInput.value.trim();
+            
+            if (!url) {
+                showStatus('Por favor, insira uma URL válida', 'error');
+                return;
+            }
+
+            if (!url.endsWith('.m3u8')) {
+                showStatus('A URL deve ser um arquivo .m3u8', 'warning');
+            }
+
+            // Limpar instância anterior
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+
+            showStatus('Carregando vídeo...', 'info');
+            statusText.textContent = 'Carregando...';
+            loadBtn.disabled = true;
+
+            // Usar hls.js para todos os navegadores (incluindo Safari) para garantir headers corretos
+            if (Hls.isSupported()) {
+                // Função para converter URL para usar o proxy
+                function getProxyUrl(originalUrl) {
+                    // Se já está usando proxy, retornar como está
+                    if (originalUrl.startsWith('/proxy/') || originalUrl.startsWith('http://localhost') || originalUrl.startsWith(window.location.origin)) {
+                        return originalUrl;
+                    }
+                    // Converter URL para passar pelo proxy
+                    return window.location.origin + '/proxy/' + encodeURIComponent(originalUrl);
+                }
+
+                // Criar loader customizado que intercepta todas as URLs
+                class ProxyLoader extends Hls.DefaultConfig.loader {
+                    load(context, config, callbacks) {
+                        // Interceptar e converter URL para usar proxy
+                        if (context.url && !context.url.startsWith('/proxy/') && !context.url.startsWith(window.location.origin)) {
+                            const originalUrl = context.url;
+                            context.url = getProxyUrl(originalUrl);
+                            console.log('Convertendo URL:', originalUrl, '->', context.url);
+                        }
+                        // Chamar o loader padrão
+                        return super.load(context, config, callbacks);
+                    }
+                }
+
+                // Configurar hls.js para usar proxy (que adiciona headers server-side)
+                hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: false,
+                    backBufferLength: 90,
+                    loader: ProxyLoader,
+                    xhrSetup: function(xhr, requestUrl) {
+                        // Não precisamos adicionar headers aqui, o proxy faz isso server-side
+                        // Mas podemos adicionar headers que o navegador permite
+                        xhr.setRequestHeader('Accept-Language', 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7');
+                    }
+                });
+
+                // Converter a URL inicial para usar o proxy
+                const proxyUrl = getProxyUrl(url);
+                console.log('URL original:', url);
+                console.log('URL do proxy:', proxyUrl);
+                hls.loadSource(proxyUrl);
+                hls.attachMedia(video);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    showStatus('Vídeo carregado com sucesso!', 'success');
+                    statusText.textContent = 'Pronto';
+                    loadBtn.disabled = false;
+                    
+                    // Atualizar informações de qualidade
+                    if (hls.levels && hls.levels.length > 0) {
+                        const levels = hls.levels.map(level => {
+                            const height = level.height || '?';
+                            const bitrate = level.bitrate ? `${Math.round(level.bitrate / 1000)}kbps` : '?';
+                            return `${height}p (${bitrate})`;
+                        });
+                        qualityText.textContent = levels.join(', ');
+                    }
+                });
+
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    console.error('Erro HLS:', data);
+                    if (data.fatal) {
+                        switch(data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                // Verificar se é erro de CORS (status 0 ou 403)
+                                if (data.details === 'manifestLoadError' || data.response?.code === 0 || data.response?.code === 403) {
+                                    showStatus('Erro de CORS ou acesso negado. Certifique-se de que está usando um servidor HTTP (não file://).', 'error');
+                                    statusText.textContent = 'Erro CORS';
+                                } else {
+                                    showStatus('Erro de rede. Tentando recuperar...', 'error');
+                                    hls.startLoad();
+                                }
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                showStatus('Erro de mídia. Tentando recuperar...', 'error');
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                showStatus('Erro fatal: ' + (data.details || 'Erro desconhecido'), 'error');
+                                statusText.textContent = 'Erro';
+                                loadBtn.disabled = false;
+                                break;
+                        }
+                    } else {
+                        console.warn('Erro não fatal:', data);
+                    }
+                });
+
+                hls.on(Hls.Events.LEVEL_SWITCHED, function(event, data) {
+                    const level = hls.levels[data.level];
+                    if (level) {
+                        const quality = level.height ? `${level.height}p` : 'Auto';
+                        qualityText.textContent = quality;
+                    }
+                });
+            } else {
+                showStatus('Seu navegador não suporta reprodução HLS', 'error');
+                statusText.textContent = 'Não suportado';
+                loadBtn.disabled = false;
+            }
+
+            // Eventos do vídeo
+            video.addEventListener('loadedmetadata', function() {
+                updateVideoInfo();
+            });
+
+            video.addEventListener('timeupdate', function() {
+                updateVideoInfo();
+            });
+
+            video.addEventListener('play', function() {
+                statusText.textContent = 'Reproduzindo';
+            });
+
+            video.addEventListener('pause', function() {
+                statusText.textContent = 'Pausado';
+            });
+
+            video.addEventListener('ended', function() {
+                statusText.textContent = 'Finalizado';
+            });
+
+            video.addEventListener('error', function(e) {
+                showStatus('Erro ao carregar o vídeo', 'error');
+                statusText.textContent = 'Erro';
+                loadBtn.disabled = false;
+            });
+        }
+
+        // Carregar vídeo ao clicar no botão
+        loadBtn.addEventListener('click', loadVideo);
+
+        // Carregar vídeo ao pressionar Enter no input
+        urlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadVideo();
+            }
+        });
+
+        // Atualizar informações periodicamente
+        setInterval(updateVideoInfo, 1000);
+    </script>
+</body>
+</html>
