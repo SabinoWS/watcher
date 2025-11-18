@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player HLS - Mugen Gacha</title>
+    <title>Player HLS</title>
     <style>
         * {
             margin: 0;
@@ -165,7 +165,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎬 Player HLS</h1>
+        <h1>🎬 Player AnimeRoll</h1>
+        
+        <div class="controls" style="margin-bottom: 20px;">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="anrollInput" 
+                    placeholder="Cole o link do anroll.net (ex: https://www.anroll.net/watch/e/...)"
+                >
+                <button id="extractBtn">Extrair Link</button>
+            </div>
+        </div>
         
         <div class="video-container">
             <video id="video" controls></video>
@@ -210,6 +221,8 @@
         let hls = null;
         const video = document.getElementById('video');
         const urlInput = document.getElementById('urlInput');
+        const anrollInput = document.getElementById('anrollInput');
+        const extractBtn = document.getElementById('extractBtn');
         const loadBtn = document.getElementById('loadBtn');
         const statusDiv = document.getElementById('status');
         const statusText = document.getElementById('statusText');
@@ -402,6 +415,57 @@
                 loadBtn.disabled = false;
             });
         }
+
+        // Função para extrair link do stream do anroll.net
+        async function extractStreamUrl() {
+            const anrollUrl = anrollInput.value.trim();
+            
+            if (!anrollUrl) {
+                showStatus('Por favor, insira um link do anroll.net', 'error');
+                return;
+            }
+
+            if (!anrollUrl.includes('anroll.net')) {
+                showStatus('O link deve ser do anroll.net', 'error');
+                return;
+            }
+
+            extractBtn.disabled = true;
+            extractBtn.textContent = 'Extraindo...';
+            showStatus('Extraindo link do stream...', 'info');
+
+            try {
+                const response = await fetch(`/extract?url=${encodeURIComponent(anrollUrl)}`);
+                const data = await response.json();
+
+                if (data.success && data.streamUrl) {
+                    urlInput.value = data.streamUrl;
+                    showStatus('Link extraído com sucesso!', 'success');
+                    // Opcional: carregar automaticamente o vídeo
+                    setTimeout(() => {
+                        loadVideo();
+                    }, 500);
+                } else {
+                    showStatus(data.error || 'Não foi possível extrair o link', 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao extrair link:', error);
+                showStatus('Erro ao extrair o link: ' + error.message, 'error');
+            } finally {
+                extractBtn.disabled = false;
+                extractBtn.textContent = 'Extrair Link';
+            }
+        }
+
+        // Extrair link ao clicar no botão
+        extractBtn.addEventListener('click', extractStreamUrl);
+
+        // Extrair link ao pressionar Enter no input do anroll
+        anrollInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                extractStreamUrl();
+            }
+        });
 
         // Carregar vídeo ao clicar no botão
         loadBtn.addEventListener('click', loadVideo);
