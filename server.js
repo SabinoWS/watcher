@@ -9,7 +9,36 @@ const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 
+const HISTORY_FILE = './history.json';
+
 const PORT = 8000;
+
+// Funções para gerenciar histórico
+function loadHistory() {
+    try {
+        if (fs.existsSync(HISTORY_FILE)) {
+            const data = fs.readFileSync(HISTORY_FILE, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar histórico:', error);
+    }
+    return [];
+}
+
+function saveHistory(history) {
+    try {
+        // Ordenar por data (mais recente primeiro) e limitar a 50 itens
+        const sorted = history
+            .sort((a, b) => new Date(b.lastWatched) - new Date(a.lastWatched))
+            .slice(0, 50);
+        fs.writeFileSync(HISTORY_FILE, JSON.stringify(sorted, null, 2), 'utf8');
+        return true;
+    } catch (error) {
+        console.error('Erro ao salvar histórico:', error);
+        return false;
+    }
+}
 
 const mimeTypes = {
     '.html': 'text/html',
@@ -216,6 +245,60 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ error: 'Erro ao processar requisição: ' + error.message }));
         }
         return;
+    }
+
+    // Endpoint para gerenciar histórico
+    if (req.url.startsWith('/api/history')) {
+        if (req.method === 'GET') {
+            // Retornar histórico
+            const history = loadHistory();
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(history));
+            return;
+        } else if (req.method === 'POST') {
+            // Salvar entrada no histórico
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+            req.on('end', () => {
+                try {
+                    const entry = JSON.parse(body);
+                    const history = loadHistory();
+                    
+                    // Verificar se já existe (por URL do stream)
+                    const existingIndex = history.findIndex(h => h.streamUrl === entry.streamUrl);
+                    
+                    if (existingIndex >= 0) {
+                        // Atualizar entrada existente
+                        history[existingIndex] = {
+                            ...history[existingIndex],
+                            ...entry,
+                            lastWatched: new Date().toISOString()
+                        };
+                    } else {
+                        // Adicionar nova entrada
+                        history.push({
+                            ...entry,
+                            lastWatched: new Date().toISOString()
+                        });
+                    }
+                    
+                    if (saveHistory(history)) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true }));
+                    } else {
+                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ error: 'Erro ao salvar histórico' }));
+                    }
+                } catch (error) {
+                    console.error('Erro ao processar histórico:', error);
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Dados inválidos' }));
+                }
+            });
+            return;
+        }
     }
 
     // Proxy para requisições HLS - intercepta requisições para o CDN

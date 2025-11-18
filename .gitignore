@@ -1,0 +1,13 @@
+# Histórico de episódios
+history.json
+
+# Node modules (caso adicione dependências no futuro)
+node_modules/
+
+# Logs
+*.log
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
