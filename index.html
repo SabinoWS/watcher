@@ -46,10 +46,245 @@
             margin-bottom: 20px;
         }
 
+        #hlsPlayerWrapper {
+            width: 100%;
+        }
+
+        #externalPlayerContainer {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            min-height: 400px;
+            background: #000;
+        }
+
+        #externalPlayerFrame {
+            width: 100%;
+            min-height: 480px;
+            border: none;
+            background: #000;
+        }
+
+        .external-player-alert {
+            padding: 15px;
+            color: #fff;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .external-player-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .external-player-actions button {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .episode-title-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
         video {
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .video-controls {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #progressSlider {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        #progressSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            -moz-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #progressSlider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        #progressSlider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+        }
+
+        #progressSlider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .progress-time {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .control-btn {
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            min-width: 50px;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .watched-btn {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .watched-btn:hover {
+            background: rgba(76, 175, 80, 0.5);
+        }
+
+        .watched-btn.active {
+            background: rgba(76, 175, 80, 0.7);
+            border-color: #4caf50;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quality-control {
+            position: relative;
+        }
+
+        .quality-menu {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            margin-bottom: 5px;
+            background: rgba(0, 0, 0, 0.95);
+            border-radius: 6px;
+            padding: 8px 0;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .quality-option {
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .quality-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .quality-option.active {
+            background: rgba(102, 126, 234, 0.5);
+            font-weight: 600;
+        }
+
+        #volumeSlider {
+            width: 100px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            -moz-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #volumeSlider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
         }
 
         .controls {
@@ -164,14 +399,20 @@
 
         .history-item {
             background: white;
-            padding: 12px;
+            padding: 20px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .history-item.watched {
+            background: linear-gradient(90deg, #e8f5e9 0%, #ffffff 5%);
+            border-left-color: #4caf50;
         }
 
         .history-item:hover {
@@ -179,30 +420,60 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
+        .watched-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
         .history-item-info {
             flex: 1;
+            min-width: 0;
         }
 
         .history-item-title {
             font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 18px;
         }
 
         .history-item-meta {
-            font-size: 12px;
+            font-size: 15px;
             color: #666;
+            margin-bottom: 8px;
+        }
+
+        .history-item-link {
+            font-size: 14px;
+            color: #667eea;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+            word-break: break-all;
+            font-weight: 500;
+        }
+
+        .history-item-link:hover {
+            text-decoration: underline;
+            color: #764ba2;
         }
 
         .history-item-actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
         .history-item-actions button {
-            padding: 8px 16px;
-            font-size: 12px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .history-empty {
@@ -221,14 +492,50 @@
                 <input 
                     type="text" 
                     id="anrollInput" 
-                    placeholder="Cole o link do anroll.net (ex: https://www.anroll.net/watch/e/...)"
+                    placeholder="Cole o link (anroll.net ou animesonlinecc.to)"
                 >
                 <button id="extractBtn">Extrair Link</button>
             </div>
         </div>
         
         <div class="video-container">
-            <video id="video" controls></video>
+            <div id="hlsPlayerWrapper">
+                <video id="video"></video>
+                <div class="video-controls">
+                    <div class="progress-container">
+                        <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.1" title="Progresso do vídeo">
+                        <div class="progress-time">
+                            <span id="currentTimeDisplay">00:00</span> / <span id="durationDisplay">00:00</span>
+                        </div>
+                    </div>
+                    <div class="controls-row">
+                        <button id="rewindBtn" class="control-btn" title="Voltar 10 segundos">⏪ -10s</button>
+                        <button id="playPauseBtn" class="control-btn" title="Play/Pause">⏸️</button>
+                        <button id="forwardBtn" class="control-btn" title="Avançar 10 segundos">+10s ⏩</button>
+                        <div class="volume-control">
+                            <button id="muteBtn" class="control-btn" title="Mutar/Desmutar">🔊</button>
+                            <input type="range" id="volumeSlider" min="0" max="100" value="100" title="Volume">
+                        </div>
+                        <div class="quality-control">
+                            <button id="qualityBtn" class="control-btn" title="Qualidade">⚙️ Qualidade</button>
+                            <div id="qualityMenu" class="quality-menu" style="display: none;">
+                                <div class="quality-option" data-quality="auto">Auto</div>
+                            </div>
+                        </div>
+                        <button id="markWatchedBtn" class="control-btn watched-btn" title="Marcar como assistido">✓ Assistido</button>
+                        <button id="fullscreenBtn" class="control-btn" title="Tela cheia">⛶</button>
+                    </div>
+                </div>
+            </div>
+            <div id="externalPlayerContainer">
+                <div class="external-player-alert">
+                    Player externo do Blogger detectado. Use o player abaixo ou abra em uma nova aba.
+                </div>
+                <iframe id="externalPlayerFrame" allowfullscreen referrerpolicy="no-referrer"></iframe>
+                <div class="external-player-actions">
+                    <button id="openExternalBtn">Abrir player em nova aba</button>
+                </div>
+            </div>
         </div>
 
         <div class="controls">
@@ -245,12 +552,7 @@
 
         <div id="status" class="status info" style="display: none;"></div>
 
-        <div class="history-section" style="margin-top: 30px;">
-            <h2 style="color: #333; margin-bottom: 15px; font-size: 20px;">📚 Histórico de Episódios</h2>
-            <div id="historyList" style="max-height: 300px; overflow-y: auto; background: #f5f5f5; border-radius: 8px; padding: 15px;">
-                <p style="text-align: center; color: #666; padding: 20px;">Carregando histórico...</p>
-            </div>
-        </div>
+        <div id="episodeTitle" class="episode-title-info" style="display: none;"></div>
 
         <div class="video-info">
             <div class="info-card">
@@ -270,6 +572,13 @@
                 <span id="currentTimeText">00:00</span>
             </div>
         </div>
+
+        <div class="history-section" style="margin-top: 30px;">
+            <h2 style="color: #333; margin-bottom: 15px; font-size: 20px;">📚 Histórico de Episódios</h2>
+            <div id="historyList" style="max-height: 600px; overflow-y: auto; background: #f5f5f5; border-radius: 8px; padding: 15px;">
+                <p style="text-align: center; color: #666; padding: 20px;">Carregando histórico...</p>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -278,6 +587,11 @@
         let currentStreamUrl = null;
         let currentTitle = null;
         let saveProgressInterval = null;
+        let externalPlayerActive = false;
+        let externalPlayerUrl = null;
+        let currentSourceUrl = null;
+        let currentPlayerUrl = null;
+        let currentEpisodeId = null;
         const video = document.getElementById('video');
         const urlInput = document.getElementById('urlInput');
         const anrollInput = document.getElementById('anrollInput');
@@ -289,6 +603,24 @@
         const durationText = document.getElementById('durationText');
         const currentTimeText = document.getElementById('currentTimeText');
         const historyList = document.getElementById('historyList');
+        const progressSlider = document.getElementById('progressSlider');
+        const episodeTitleDiv = document.getElementById('episodeTitle');
+        const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+        const durationDisplay = document.getElementById('durationDisplay');
+        const rewindBtn = document.getElementById('rewindBtn');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const markWatchedBtn = document.getElementById('markWatchedBtn');
+        const qualityBtn = document.getElementById('qualityBtn');
+        const qualityMenu = document.getElementById('qualityMenu');
+        const hlsPlayerWrapper = document.getElementById('hlsPlayerWrapper');
+        const externalPlayerContainer = document.getElementById('externalPlayerContainer');
+        const externalPlayerFrame = document.getElementById('externalPlayerFrame');
+        const openExternalBtn = document.getElementById('openExternalBtn');
+        const videoControls = document.querySelector('.video-controls');
 
         function showStatus(message, type = 'info') {
             statusDiv.textContent = message;
@@ -303,6 +635,7 @@
                     const minutes = Math.floor(duration / 60);
                     const seconds = Math.floor(duration % 60);
                     durationText.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    durationDisplay.textContent = formatTime(duration);
                 }
             }
 
@@ -310,6 +643,13 @@
             const minutes = Math.floor(current / 60);
             const seconds = Math.floor(current % 60);
             currentTimeText.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            currentTimeDisplay.textContent = formatTime(current);
+            
+            // Atualizar slider de progresso (apenas se não estiver arrastando)
+            if (!isDraggingProgress && video.duration && !isNaN(video.duration)) {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressSlider.value = progress;
+            }
         }
 
         function formatTime(seconds) {
@@ -320,6 +660,120 @@
                 return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
             }
             return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function normalizeIdentifier(url) {
+            if (!url) return null;
+            try {
+                return url.trim().replace(/\/+$/, '');
+            } catch (error) {
+                return url;
+            }
+        }
+
+        function normalizeUrlValue(url) {
+            if (!url) return '';
+            try {
+                return url.trim().replace(/\/+$/, '');
+            } catch (error) {
+                return url || '';
+            }
+        }
+
+        function showHlsPlayer() {
+            externalPlayerActive = false;
+            externalPlayerUrl = null;
+            currentPlayerUrl = null;
+            if (externalPlayerFrame) {
+                externalPlayerFrame.src = '';
+            }
+            externalPlayerContainer.style.display = 'none';
+            hlsPlayerWrapper.style.display = 'block';
+            if (videoControls) {
+                videoControls.style.display = 'flex';
+            }
+            markWatchedBtn.disabled = false;
+        }
+
+        function loadExternalPlayer(url, title) {
+            stopSavingProgress();
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+            externalPlayerActive = true;
+            externalPlayerUrl = url;
+            currentPlayerUrl = url;
+            currentEpisodeId = normalizeIdentifier(url);
+            hlsPlayerWrapper.style.display = 'none';
+            externalPlayerContainer.style.display = 'flex';
+            if (externalPlayerFrame) {
+                externalPlayerFrame.src = url;
+            }
+            if (videoControls) {
+                videoControls.style.display = 'none';
+            }
+            markWatchedBtn.disabled = true;
+            markWatchedBtn.classList.remove('active');
+            currentStreamUrl = null;
+            qualityText.textContent = '-';
+            qualityBtn.textContent = '⚙️ Qualidade';
+            qualityMenu.style.display = 'none';
+            durationText.textContent = '-';
+            currentTimeText.textContent = '00:00';
+            currentTimeDisplay.textContent = '00:00';
+            durationDisplay.textContent = '00:00';
+            progressSlider.value = 0;
+            statusText.textContent = 'Player externo';
+            if (title) {
+                currentTitle = title;
+                episodeTitleDiv.textContent = title;
+                episodeTitleDiv.style.display = 'block';
+            } else {
+                episodeTitleDiv.style.display = 'none';
+            }
+            showStatus('Player do Blogger carregado! Use o botão abaixo para abrir em nova aba, se preferir.', 'info');
+            saveExternalEpisodeEntry();
+        }
+
+        if (openExternalBtn) {
+            openExternalBtn.addEventListener('click', () => {
+                if (externalPlayerUrl) {
+                    window.open(externalPlayerUrl, '_blank', 'noopener,noreferrer');
+                }
+            });
+        }
+
+        async function saveExternalEpisodeEntry() {
+            if (!externalPlayerUrl) return;
+            const episodeId = normalizeIdentifier(currentEpisodeId || externalPlayerUrl);
+            if (!episodeId) return;
+            
+            const entry = {
+                streamUrl: normalizeUrlValue(externalPlayerUrl),
+                playerUrl: normalizeUrlValue(externalPlayerUrl),
+                title: currentTitle || episodeTitleDiv.textContent || 'Episódio',
+                currentTime: 0,
+                duration: 0,
+                anrollUrl: currentSourceUrl ? normalizeUrlValue(currentSourceUrl) : (anrollInput.value ? normalizeUrlValue(anrollInput.value) : null),
+                watched: false,
+                playerType: 'blogger',
+                episodeId
+            };
+
+            try {
+                await fetch('/api/history', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(entry)
+                });
+                loadHistory();
+            } catch (error) {
+                console.error('Erro ao salvar episódio externo:', error);
+            }
         }
 
         function loadVideo() {
@@ -334,9 +788,27 @@
                 showStatus('A URL deve ser um arquivo .m3u8', 'warning');
             }
 
+            showHlsPlayer();
+            markWatchedBtn.disabled = false;
+            currentPlayerUrl = null;
+            currentEpisodeId = normalizeIdentifier(url);
+
+            // Atualizar URL de origem (link usado para chegar ao stream), se houver
+            const sourceFromInput = anrollInput.value.trim();
+            if (sourceFromInput) {
+                currentSourceUrl = sourceFromInput;
+            } else if (!currentSourceUrl) {
+                currentSourceUrl = null;
+            }
+
             // Parar de salvar progresso do vídeo anterior
             stopSavingProgress();
-            saveProgress(); // Salvar uma última vez
+            
+            // Salvar progresso do vídeo anterior ANTES de atualizar currentStreamUrl
+            // Isso garante que salvamos com a URL correta do vídeo anterior
+            if (currentStreamUrl && video.duration) {
+                saveProgress(); // Salvar uma última vez do vídeo anterior
+            }
 
             // Limpar instância anterior
             if (hls) {
@@ -344,9 +816,48 @@
                 hls = null;
             }
 
-            // Atualizar URL e título atual
+            // Atualizar URL e título atual para o NOVO vídeo
+            // IMPORTANTE: Fazer isso DEPOIS de salvar o progresso do vídeo anterior
             currentStreamUrl = url;
-            currentTitle = anrollInput.value.trim() || url.split('/').pop() || 'Episódio';
+            currentPlayerUrl = null;
+            currentEpisodeId = normalizeIdentifier(url);
+            
+            // SEMPRE tentar extrair número do episódio da URL atual primeiro
+            // Isso garante que o título sempre corresponde ao vídeo sendo carregado
+            const urlMatch = url.match(/\/(\d{3,4})\.mp4/i);
+            if (urlMatch) {
+                // Se encontrou número na URL, SEMPRE usar ele (sobrescreve título anterior)
+                const episodeNum = urlMatch[1];
+                // Se já temos um título completo do histórico, tentar preservar o nome do anime
+                if (currentTitle && currentTitle.includes(' - ')) {
+                    // Extrair nome do anime do título anterior
+                    const parts = currentTitle.split(' - ');
+                    if (parts.length > 1) {
+                        currentTitle = `Episódio ${episodeNum} - ${parts.slice(1).join(' - ')}`;
+                    } else {
+                        currentTitle = `Episódio ${episodeNum}`;
+                    }
+                } else {
+                    currentTitle = `Episódio ${episodeNum}`;
+                }
+            } else if (!currentTitle) {
+                // Se não encontrou número e não tem título, usar fallback
+                currentTitle = anrollInput.value.trim() || url.split('/').pop() || 'Episódio';
+            }
+            // Se ainda não tem título válido, tentar do anrollInput
+            if (!currentTitle || currentTitle === 'Episódio') {
+                if (anrollInput.value.trim()) {
+                    currentTitle = anrollInput.value.trim();
+                }
+            }
+            
+            // Atualizar display do título
+            if (currentTitle && currentTitle !== 'Episódio') {
+                episodeTitleDiv.textContent = currentTitle;
+                episodeTitleDiv.style.display = 'block';
+            } else {
+                episodeTitleDiv.style.display = 'none';
+            }
 
             showStatus('Carregando vídeo...', 'info');
             statusText.textContent = 'Carregando...';
@@ -406,7 +917,10 @@
                     // Iniciar salvamento de progresso
                     startSavingProgress();
                     
-                    // Atualizar informações de qualidade
+                    // Atualizar informações de qualidade e criar menu
+                    updateQualityMenu();
+                    
+                    // Atualizar informações de qualidade no card
                     if (hls.levels && hls.levels.length > 0) {
                         const levels = hls.levels.map(level => {
                             const height = level.height || '?';
@@ -452,6 +966,7 @@
                         const quality = level.height ? `${level.height}p` : 'Auto';
                         qualityText.textContent = quality;
                     }
+                    updateQualityMenu(); // Atualizar menu quando qualidade mudar
                 });
             } else {
                 showStatus('Seu navegador não suporta reprodução HLS', 'error');
@@ -492,12 +1007,14 @@
             const anrollUrl = anrollInput.value.trim();
             
             if (!anrollUrl) {
-                showStatus('Por favor, insira um link do anroll.net', 'error');
+                showStatus('Por favor, insira um link suportado (anroll.net ou animesonlinecc.to)', 'error');
                 return;
             }
 
-            if (!anrollUrl.includes('anroll.net')) {
-                showStatus('O link deve ser do anroll.net', 'error');
+            const supportedDomains = ['anroll.net', 'animesonlinecc.to'];
+            const isSupported = supportedDomains.some(domain => anrollUrl.includes(domain));
+            if (!isSupported) {
+                showStatus('O link deve ser do anroll.net ou do animesonlinecc.to', 'error');
                 return;
             }
 
@@ -510,10 +1027,32 @@
                 const data = await response.json();
 
                 if (data.success && data.streamUrl) {
+                    currentSourceUrl = anrollUrl;
+                    if (data.playerType === 'blogger') {
+                        loadExternalPlayer(data.streamUrl, data.title);
+                        showStatus('Player do Blogger encontrado e carregado!', 'success');
+                        return;
+                    }
+
                     urlInput.value = data.streamUrl;
-                    // Extrair título da URL do anroll
-                    const urlMatch = anrollUrl.match(/\/watch\/e\/([^\/]+)/);
-                    currentTitle = urlMatch ? `Episódio ${urlMatch[1]}` : 'Episódio';
+                    // Usar título extraído da página ou fallback
+                    if (data.title) {
+                        currentTitle = data.title;
+                        episodeTitleDiv.textContent = data.title;
+                        episodeTitleDiv.style.display = 'block';
+                    } else {
+                        // Tentar extrair número do episódio da URL do stream
+                        const streamMatch = data.streamUrl.match(/\/(\d{3,4})\.mp4/i);
+                        if (streamMatch) {
+                            currentTitle = `Episódio ${streamMatch[1]}`;
+                        } else {
+                            // Extrair título da URL do anroll como fallback
+                            const urlMatch = anrollUrl.match(/\/watch\/e\/([^\/]+)/);
+                            currentTitle = urlMatch ? `Episódio ${urlMatch[1]}` : 'Episódio';
+                        }
+                        episodeTitleDiv.textContent = currentTitle;
+                        episodeTitleDiv.style.display = 'block';
+                    }
                     showStatus('Link extraído com sucesso!', 'success');
                     // Opcional: carregar automaticamente o vídeo
                     setTimeout(() => {
@@ -581,20 +1120,26 @@
                 const timeStr = formatTime(item.currentTime || 0);
                 const durationStr = item.duration ? formatTime(item.duration) : '?';
                 const progress = item.duration ? Math.round((item.currentTime / item.duration) * 100) : 0;
-                const streamUrlEscaped = item.streamUrl.replace(/'/g, "\\'");
-                const titleEscaped = (item.title || 'Episódio sem título').replace(/'/g, "\\'");
+                const titleEscaped = (item.title || 'Episódio sem título').replace(/"/g, '&quot;');
+                const anrollUrlEscaped = item.anrollUrl ? item.anrollUrl.replace(/"/g, '&quot;') : '';
+                const isWatched = item.watched === true;
                 
                 return `
-                    <div class="history-item">
+                    <div class="history-item ${isWatched ? 'watched' : ''}">
                         <div class="history-item-info">
-                            <div class="history-item-title">${titleEscaped}</div>
+                            <div class="history-item-title">
+                                ${titleEscaped}
+                                ${isWatched ? '<span class="watched-badge">✓ Assistido</span>' : ''}
+                            </div>
                             <div class="history-item-meta">
                                 ${timeStr} / ${durationStr} (${progress}%) • ${dateStr}
                             </div>
+                            ${item.anrollUrl ? `<a href="${anrollUrlEscaped}" target="_blank" class="history-item-link" title="Abrir no anroll.net">🔗 ${anrollUrlEscaped}</a>` : ''}
                         </div>
                         <div class="history-item-actions">
                             <button onclick="resumeEpisode(${index})">▶ Retomar</button>
-                            <button onclick="playFromStart(${index})">▶ Início</button>
+                            ${!isWatched ? `<button onclick="markAsWatched(${index})" style="background: #4caf50; color: white; border: none;">✓ Marcar Assistido</button>` : `<button onclick="unmarkAsWatched(${index})" style="background: #ff9800; color: white; border: none;">✗ Desmarcar</button>`}
+                            <button onclick="deleteEpisode(${index})" style="background: #f44336; color: white; border: none;" title="Excluir do histórico">🗑️ Excluir</button>
                         </div>
                     </div>
                 `;
@@ -605,17 +1150,34 @@
         }
 
         async function saveProgress() {
+            if (externalPlayerActive) return;
             if (!currentStreamUrl || !video.duration) return;
+            const episodeId = normalizeIdentifier(currentEpisodeId || currentStreamUrl);
+            if (!episodeId) return;
             
             const entry = {
-                streamUrl: currentStreamUrl,
+                streamUrl: normalizeUrlValue(currentStreamUrl),
+                playerUrl: currentPlayerUrl ? normalizeUrlValue(currentPlayerUrl) : null,
                 title: currentTitle || urlInput.value || 'Episódio',
                 currentTime: video.currentTime,
                 duration: video.duration,
-                anrollUrl: anrollInput.value || null
+                anrollUrl: currentSourceUrl ? normalizeUrlValue(currentSourceUrl) : null,
+                watched: false, // Manter o status de assistido separado
+                playerType: 'hls',
+                episodeId
             };
 
             try {
+                const response = await fetch('/api/history');
+                const history = await response.json();
+                
+                const existingItem = history.find(h => normalizeUrlValue(h.episodeId || h.streamUrl || h.playerUrl) === episodeId);
+                
+                // Preservar o status de assistido se já existir
+                if (existingItem && existingItem.watched) {
+                    entry.watched = true;
+                }
+                
                 await fetch('/api/history', {
                     method: 'POST',
                     headers: {
@@ -627,6 +1189,102 @@
                 loadHistory();
             } catch (error) {
                 console.error('Erro ao salvar progresso:', error);
+            }
+        }
+
+        async function markAsWatched(index) {
+            const item = window.historyData[index];
+            if (!item) return;
+            
+            // Preservar a data original
+            const entry = {
+                ...item,
+                watched: true,
+                lastWatched: item.lastWatched // Manter a data original
+            };
+
+            try {
+                await fetch('/api/history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(entry)
+                });
+                loadHistory();
+                showStatus('Episódio marcado como assistido!', 'success');
+            } catch (error) {
+                console.error('Erro ao marcar como assistido:', error);
+                showStatus('Erro ao marcar como assistido', 'error');
+            }
+        }
+
+        async function unmarkAsWatched(index) {
+            const item = window.historyData[index];
+            if (!item) return;
+            
+            // Preservar a data original
+            const entry = {
+                ...item,
+                watched: false,
+                lastWatched: item.lastWatched // Manter a data original
+            };
+
+            try {
+                await fetch('/api/history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(entry)
+                });
+                loadHistory();
+                showStatus('Episódio desmarcado como assistido', 'info');
+            } catch (error) {
+                console.error('Erro ao desmarcar como assistido:', error);
+                showStatus('Erro ao desmarcar como assistido', 'error');
+            }
+        }
+
+        async function deleteEpisode(index) {
+            const item = window.historyData[index];
+            if (!item) return;
+            
+            // Confirmar exclusão
+            if (!confirm(`Tem certeza que deseja excluir "${item.title || 'Episódio sem título'}" do histórico?`)) {
+                return;
+            }
+
+            try {
+                // Enviar tanto streamUrl quanto anrollUrl para garantir que encontre a entrada correta
+                const deleteData = {
+                    streamUrl: item.streamUrl,
+                    playerUrl: item.playerUrl || null,
+                    episodeId: item.episodeId || item.streamUrl || item.playerUrl || null
+                };
+                if (item.anrollUrl) {
+                    deleteData.anrollUrl = item.anrollUrl;
+                }
+                
+                const response = await fetch('/api/history', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(deleteData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    loadHistory();
+                    showStatus('Episódio excluído do histórico', 'success');
+                } else {
+                    showStatus(data.error || 'Erro ao excluir episódio', 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao excluir episódio:', error);
+                showStatus('Erro ao excluir episódio', 'error');
             }
         }
 
@@ -654,16 +1312,40 @@
         function resumeEpisode(index) {
             const item = window.historyData[index];
             if (!item) return;
+            showHlsPlayer();
+            if (item.playerType && item.playerType !== 'hls') {
+                if (item.anrollUrl) {
+                    anrollInput.value = item.anrollUrl;
+                }
+                currentSourceUrl = item.anrollUrl || null;
+                currentEpisodeId = normalizeIdentifier(item.episodeId || item.playerUrl || item.streamUrl || item.anrollUrl);
+                currentPlayerUrl = item.playerUrl || item.streamUrl || null;
+                loadExternalPlayer(currentPlayerUrl, item.title);
+                return;
+            }
             
             urlInput.value = item.streamUrl;
             currentStreamUrl = item.streamUrl;
+            currentPlayerUrl = item.playerUrl || null;
+            currentEpisodeId = normalizeIdentifier(item.episodeId || item.streamUrl || item.playerUrl || item.anrollUrl);
             if (item.anrollUrl) {
                 anrollInput.value = item.anrollUrl;
             }
+            currentSourceUrl = item.anrollUrl || null;
+            // Definir título do histórico, mas loadVideo() vai verificar a URL e atualizar se necessário
             currentTitle = item.title;
+            
+            // Atualizar display do título temporariamente
+            if (currentTitle) {
+                episodeTitleDiv.textContent = currentTitle;
+                episodeTitleDiv.style.display = 'block';
+            } else {
+                episodeTitleDiv.style.display = 'none';
+            }
             
             const resumeTime = item.currentTime || 0;
             
+            // loadVideo() vai atualizar o título baseado na URL atual se necessário
             loadVideo();
             
             // Aguardar o vídeo carregar e então pular para o tempo salvo
@@ -683,21 +1365,408 @@
         function playFromStart(index) {
             const item = window.historyData[index];
             if (!item) return;
+            showHlsPlayer();
+            if (item.playerType && item.playerType !== 'hls') {
+                if (item.anrollUrl) {
+                    anrollInput.value = item.anrollUrl;
+                }
+                currentSourceUrl = item.anrollUrl || null;
+                currentEpisodeId = normalizeIdentifier(item.episodeId || item.playerUrl || item.streamUrl || item.anrollUrl);
+                currentPlayerUrl = item.playerUrl || item.streamUrl || null;
+                loadExternalPlayer(currentPlayerUrl, item.title);
+                return;
+            }
             
             urlInput.value = item.streamUrl;
             currentStreamUrl = item.streamUrl;
+            currentPlayerUrl = item.playerUrl || null;
+            currentEpisodeId = normalizeIdentifier(item.episodeId || item.streamUrl || item.playerUrl || item.anrollUrl);
             if (item.anrollUrl) {
                 anrollInput.value = item.anrollUrl;
             }
+            currentSourceUrl = item.anrollUrl || null;
             currentTitle = item.title;
             loadVideo();
         }
 
-        // Atualizar informações periodicamente
-        setInterval(updateVideoInfo, 1000);
+        // Atualizar informações periodicamente (backup caso timeupdate não funcione)
+        setInterval(updateVideoInfo, 250);
+        
+        // Atualizar em tempo real com evento do vídeo (mais preciso)
+        video.addEventListener('timeupdate', updateVideoInfo);
+        
+        // Botão para marcar como assistido
+        markWatchedBtn.addEventListener('click', async () => {
+            if (!currentEpisodeId) {
+                showStatus('Nenhum vídeo carregado', 'error');
+                return;
+            }
+            if (externalPlayerActive) {
+                showStatus('Não é possível marcar automaticamente um player externo.', 'warning');
+                return;
+            }
+            
+            const entry = {
+                streamUrl: currentStreamUrl,
+                playerUrl: currentPlayerUrl,
+                title: currentTitle || urlInput.value || 'Episódio',
+                currentTime: video.currentTime || 0,
+                duration: video.duration || 0,
+                anrollUrl: currentSourceUrl || null,
+                watched: true,
+                episodeId: normalizeIdentifier(currentEpisodeId),
+                playerType: externalPlayerActive ? 'blogger' : 'hls'
+            };
+
+            try {
+                await fetch('/api/history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(entry)
+                });
+                loadHistory();
+                markWatchedBtn.classList.add('active');
+                showStatus('Episódio marcado como assistido! ✓', 'success');
+            } catch (error) {
+                console.error('Erro ao marcar como assistido:', error);
+                showStatus('Erro ao marcar como assistido', 'error');
+            }
+        });
+        
+        // Verificar se o vídeo atual já está marcado como assistido
+        function checkWatchedStatus() {
+            if (!currentEpisodeId || !window.historyData) return;
+            const normalizedId = normalizeIdentifier(currentEpisodeId);
+            const currentItem = window.historyData.find(h => normalizeIdentifier(h.episodeId || h.streamUrl || h.playerUrl) === normalizedId);
+            if (currentItem && currentItem.watched) {
+                markWatchedBtn.classList.add('active');
+            } else {
+                markWatchedBtn.classList.remove('active');
+            }
+        }
+        
+        // Sobrescrever loadHistory para verificar status
+        const originalLoadHistory = loadHistory;
+        loadHistory = async function() {
+            await originalLoadHistory();
+            checkWatchedStatus();
+        };
+
+        // Controle de progresso
+        let isDraggingProgress = false;
+        
+        progressSlider.addEventListener('mousedown', () => {
+            isDraggingProgress = true;
+        });
+        
+        progressSlider.addEventListener('mouseup', () => {
+            if (isDraggingProgress && video.duration) {
+                const newTime = (progressSlider.value / 100) * video.duration;
+                video.currentTime = newTime;
+            }
+            isDraggingProgress = false;
+        });
+        
+        progressSlider.addEventListener('mouseleave', () => {
+            if (isDraggingProgress) {
+                isDraggingProgress = false;
+            }
+        });
+        
+        progressSlider.addEventListener('input', () => {
+            if (isDraggingProgress && video.duration) {
+                const newTime = (progressSlider.value / 100) * video.duration;
+                video.currentTime = newTime;
+                currentTimeDisplay.textContent = formatTime(newTime);
+            } else if (video.duration) {
+                // Preview ao arrastar
+                const previewTime = (progressSlider.value / 100) * video.duration;
+                currentTimeDisplay.textContent = formatTime(previewTime);
+            }
+        });
+
+        // Controles de mídia
+        rewindBtn.addEventListener('click', () => {
+            video.currentTime = Math.max(0, video.currentTime - 10);
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            video.currentTime = Math.min(video.duration, video.currentTime + 10);
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        // Atualizar ícone do botão play/pause
+        video.addEventListener('play', () => {
+            playPauseBtn.textContent = '⏸️';
+            playPauseBtn.title = 'Pausar';
+        });
+
+        video.addEventListener('pause', () => {
+            playPauseBtn.textContent = '▶️';
+            playPauseBtn.title = 'Play';
+        });
+
+        // Controle de volume
+        let previousVolume = 1;
+        muteBtn.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                video.volume = previousVolume;
+                volumeSlider.value = previousVolume * 100;
+                muteBtn.textContent = '🔊';
+                muteBtn.title = 'Mutar';
+            } else {
+                previousVolume = video.volume;
+                video.muted = true;
+                volumeSlider.value = 0;
+                muteBtn.textContent = '🔇';
+                muteBtn.title = 'Desmutar';
+            }
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            video.volume = e.target.value / 100;
+            video.muted = false;
+            if (video.volume > 0) {
+                previousVolume = video.volume;
+                muteBtn.textContent = '🔊';
+                muteBtn.title = 'Mutar';
+            } else {
+                muteBtn.textContent = '🔇';
+                muteBtn.title = 'Desmutar';
+            }
+        });
+
+        video.addEventListener('volumechange', () => {
+            if (!video.muted) {
+                volumeSlider.value = video.volume * 100;
+            }
+        });
+
+        // Controle de qualidade
+        function updateQualityMenu() {
+            if (!hls || !hls.levels || hls.levels.length === 0) {
+                qualityMenu.innerHTML = '<div class="quality-option">Nenhuma qualidade disponível</div>';
+                qualityBtn.textContent = '⚙️ Qualidade';
+                return;
+            }
+
+            const currentLevel = hls.currentLevel;
+            let menuHTML = '<div class="quality-option" data-quality="-1">Auto</div>';
+            
+            hls.levels.forEach((level, index) => {
+                const height = level.height || '?';
+                const bitrate = level.bitrate ? `${Math.round(level.bitrate / 1000)}kbps` : '';
+                const label = height !== '?' ? `${height}p${bitrate ? ` (${bitrate})` : ''}` : `Nível ${index}`;
+                const isActive = currentLevel === index ? 'active' : '';
+                menuHTML += `<div class="quality-option ${isActive}" data-quality="${index}">${label}</div>`;
+            });
+
+            qualityMenu.innerHTML = menuHTML;
+
+            // Atualizar texto do botão
+            if (currentLevel >= 0 && currentLevel < hls.levels.length) {
+                const currentLevelObj = hls.levels[currentLevel];
+                const height = currentLevelObj.height || '?';
+                const label = height !== '?' ? `${height}p` : 'Auto';
+                qualityBtn.textContent = `⚙️ ${label}`;
+            } else {
+                qualityBtn.textContent = '⚙️ Auto';
+            }
+
+            // Adicionar event listeners
+            qualityMenu.querySelectorAll('.quality-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const quality = parseInt(option.dataset.quality);
+                    if (hls) {
+                        hls.currentLevel = quality;
+                        updateQualityMenu();
+                        qualityMenu.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Toggle menu de qualidade
+        qualityBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (hls && hls.levels && hls.levels.length > 0) {
+                qualityMenu.style.display = qualityMenu.style.display === 'none' ? 'block' : 'none';
+            } else {
+                showStatus('Nenhuma qualidade disponível', 'warning');
+            }
+        });
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!qualityMenu.contains(e.target) && e.target !== qualityBtn) {
+                qualityMenu.style.display = 'none';
+            }
+        });
+
+        // Fullscreen
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                const container = document.querySelector('.video-container');
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        });
+
+        // Atualizar ícone do fullscreen
+        document.addEventListener('fullscreenchange', updateFullscreenIcon);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+        document.addEventListener('msfullscreenchange', updateFullscreenIcon);
+
+        function updateFullscreenIcon() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+                fullscreenBtn.textContent = '⛶';
+                fullscreenBtn.title = 'Sair da tela cheia';
+            } else {
+                fullscreenBtn.textContent = '⛶';
+                fullscreenBtn.title = 'Tela cheia';
+            }
+        }
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', (e) => {
+            // Ignorar se estiver digitando em um input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            switch(e.key) {
+                case ' ':
+                case 'k':
+                    e.preventDefault();
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    video.currentTime = Math.max(0, video.currentTime - 10);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    video.currentTime = Math.min(video.duration, video.currentTime + 10);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    video.volume = Math.min(1, video.volume + 0.1);
+                    volumeSlider.value = video.volume * 100;
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    video.volume = Math.max(0, video.volume - 0.1);
+                    volumeSlider.value = video.volume * 100;
+                    break;
+                case 'm':
+                    e.preventDefault();
+                    video.muted = !video.muted;
+                    if (video.muted) {
+                        muteBtn.textContent = '🔇';
+                    } else {
+                        muteBtn.textContent = '🔊';
+                    }
+                    break;
+                case 'f':
+                    e.preventDefault();
+                    fullscreenBtn.click();
+                    break;
+            }
+        });
+
+        // Função para carregar automaticamente o último episódio
+        async function loadLastEpisode() {
+            try {
+                const response = await fetch('/api/history');
+                const history = await response.json();
+                
+                if (history && history.length > 0) {
+                    const lastEpisode = history[0]; // Já está ordenado por data (mais recente primeiro)
+                    
+                    // Preencher os campos
+                    showHlsPlayer();
+                    if (lastEpisode.playerType && lastEpisode.playerType !== 'hls') {
+                        if (lastEpisode.anrollUrl) {
+                            anrollInput.value = lastEpisode.anrollUrl;
+                        }
+                        currentSourceUrl = lastEpisode.anrollUrl || null;
+                        currentPlayerUrl = lastEpisode.playerUrl || lastEpisode.streamUrl;
+                        currentEpisodeId = normalizeIdentifier(lastEpisode.episodeId || currentPlayerUrl);
+                        loadExternalPlayer(currentPlayerUrl, lastEpisode.title);
+                        return;
+                    }
+                    if (lastEpisode.anrollUrl) {
+                        anrollInput.value = lastEpisode.anrollUrl;
+                    }
+                    currentSourceUrl = lastEpisode.anrollUrl || null;
+                    urlInput.value = lastEpisode.streamUrl;
+                    currentStreamUrl = lastEpisode.streamUrl;
+                     currentPlayerUrl = lastEpisode.playerUrl || null;
+                     currentEpisodeId = normalizeIdentifier(lastEpisode.episodeId || lastEpisode.streamUrl || lastEpisode.playerUrl);
+                    currentTitle = lastEpisode.title;
+                    
+                    // Atualizar display do título
+                    if (currentTitle) {
+                        episodeTitleDiv.textContent = currentTitle;
+                        episodeTitleDiv.style.display = 'block';
+                    } else {
+                        episodeTitleDiv.style.display = 'none';
+                    }
+                    
+                    // Carregar o vídeo
+                    loadVideo();
+                    
+                    // Aguardar o vídeo carregar e pular para o tempo salvo
+                    const seekToLastPosition = () => {
+                        if (video.readyState >= 2 && video.duration) {
+                            const resumeTime = lastEpisode.currentTime || 0;
+                            video.currentTime = resumeTime;
+                            showStatus(`Retomando de onde parou: ${formatTime(resumeTime)}`, 'info');
+                        } else {
+                            setTimeout(seekToLastPosition, 100);
+                        }
+                    };
+                    
+                    video.addEventListener('loadedmetadata', seekToLastPosition, { once: true });
+                    video.addEventListener('canplay', seekToLastPosition, { once: true });
+                }
+            } catch (error) {
+                console.error('Erro ao carregar último episódio:', error);
+            }
+        }
 
         // Carregar histórico ao iniciar
         loadHistory();
+
+        // Carregar automaticamente o último episódio
+        loadLastEpisode();
 
         // Salvar progresso quando o vídeo for pausado ou fechado
         video.addEventListener('pause', saveProgress);
